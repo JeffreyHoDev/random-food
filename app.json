@@ -2,6 +2,10 @@
   "expo": {
     "name": "random-food",
     "slug": "random-food",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "scss", "sass"]
+    }
   }
 }

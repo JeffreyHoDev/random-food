@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Text, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { PaperProvider } from 'react-native-paper';
 
-export default function App() {
+
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme';
+
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+import HomeScreen from './screen/home.screen';
+
+function SettingsScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const HomeTabOptions = {
+  tabBarIcon: () => <Ionicons name="home" size={32}/>,
+  tabBarActiveTintColor: "white",
+  tabBarActiveBackgroundColor: theme.color.focus,
+}
+const AboutTabOptions = {
+  tabBarIcon: () => <Ionicons name="information-circle-outline" size={32}/>,
+  tabBarActiveTintColor: "white",
+  tabBarActiveBackgroundColor: theme.color.focus,
+
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <PaperProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{headerShown: false}}>
+          <Tab.Screen options={HomeTabOptions} name="Home" component={HomeScreen} />
+          <Tab.Screen options={AboutTabOptions} name="About" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+      </PaperProvider>
+    </ThemeProvider>
+  );
+}
